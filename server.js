@@ -1,3 +1,45 @@
+/* API DOCS
+    ========================================================================
+    /user GET: returns list of users
+    /user POST: creates a new user with 
+    {
+      refId,
+      refName,
+      friends: []
+    }
+    ========================================================================  
+    /user/:user_id GET: returns the properties of the specifed user id
+
+    IMPORTANT ONE:==========================================================
+      /user/:user_id POST: updates the friends array with the friends json
+                        object
+      Takes in {
+          "__v": 0,
+          "_id": "54c39c183c8a36112de7c98a",
+          "refId": "qwe125",
+          "refName": "vame",
+          "friends": (NOT A FRIENDS ARRAY, JUST A FRIENDS OBJECT)
+              {
+                  "name": "zxcvb127",
+                  "location": "india",
+                  "skill1": "E",
+                  "skill2": "G#",
+                  "email": "q.w@z.com",
+                  "_id": "54c3a6a1bfaf7daf379998c2"
+              }
+          }
+
+          
+
+    ========================================================================
+    /user/:user_id DELETE: deletes user
+
+    ========================================================================  
+    /user/:user_id PUT: CAN update user if required later with required
+                        fields
+                        
+    ========================================================================                        
+*/
 
 var express = require('express');
 var app = express();
@@ -42,17 +84,8 @@ router.route('/users')
     var user = new User(); // create a new instance of the user model
     user.refId = req.body.refId;
     user.refName = req.body.refName; // set the users name (comes from the request)
+    user.friends = [];
     //console.log('req body: ', req.body.refId);
-
-    var friendsDetails = {
-        name: req.body.friends[0].name,
-        location: req.body.friends[0].location,
-        skill1: req.body.friends[0].skill1,
-        skill2: req.body.friends[0].skill2,
-        email: req.body.friends[0].email
-    }
-
-    user.friends.push(friendsDetails);
 
     console.log('USER: ', user);
     // save the user and check for errors
@@ -88,6 +121,41 @@ router.route('/users/:user_id')
         if (err)
             res.send(err);
         res.json(user);
+    });
+})
+
+.post(function(req, res) {
+    console.log("inside post for updating friends list");
+    var id = req.params.id;
+    var friends = {
+        name: req.body.friends.name,
+        location: req.body.friends.location,
+        skill1: req.body.friends.skill1,
+        skill2: req.body.friends.skill2,
+        email: req.body.friends.email
+    };
+    var options = {
+        $upsert: true
+    }
+    var query = {
+        _id: req.params.user_id
+    }
+    console.log('inserting friend for ' + req.params.user_id +
+        ' friend object in the req', friends);
+    User.findByIdAndUpdate(req.refId, {
+        $push: {
+            "friends": friends
+        }
+    }, {
+        safe: true,
+        upsert: true
+    }, function(err, result) {
+        if (err) {
+            console.log(err);
+        }
+        res.json({
+            message: 'friend inserted!'
+        });
     });
 })
 
