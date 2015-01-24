@@ -5,7 +5,14 @@
     {
       refId,
       refName,
-      friends: []
+      friends: [
+      {
+        name,
+        location,
+        skill1,
+        skill2,
+        email
+      }]
     }
     ========================================================================  
     /user/:user_id GET: returns the properties of the specifed user id
@@ -37,7 +44,7 @@
     ========================================================================  
     /user/:user_id PUT: CAN update user if required later with required
                         fields
-                        
+
     ========================================================================                        
 */
 
