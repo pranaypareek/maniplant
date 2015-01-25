@@ -18,10 +18,10 @@
       }]
     }
     ========================================================================  
-    /user/:user_id GET: returns the properties of the specifed user id
+    /user/:refId GET: returns the properties of the specifed user id
 
     IMPORTANT ONE:==========================================================
-      /user/:user_id POST: updates the friends array with the friend's json
+      /user/:refId POST: updates the friends array with the friend's json
                         object
       FRIENDS NEEDS TO BE A JSON OBJECT                        
       Takes in 
@@ -42,16 +42,15 @@
           
 
     ========================================================================
-    /user/:user_id DELETE: deletes user
+    /user/:refId DELETE: deletes user
 
     ========================================================================  
-    /user/:user_id PUT: CAN update user if required later with required
+    /user/:refId PUT: CAN update user if required later with required
                         fields
 
     ========================================================================   
     COOLEST API ROUTE: 
-    /users/:user_id/skills?
-    link=https://in.linkedin.com/pub/vamshi-reddy/54/215/aa2
+    /skills?link=https://in.linkedin.com/pub/vamshi-reddy/54/215/aa2
     GET: runs a python script which scrapes the given link page for linked in skills
 
     Sends a json with skills array with all the skills for the linkedIn profile!                    

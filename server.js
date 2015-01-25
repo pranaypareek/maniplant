@@ -134,7 +134,7 @@ router.route('/users/:user_id')
 .get(function(req, res) {
     User.findById(req.params.user_id, function(err, user) {
         if (err)
-            res.send(err);
+            res.send('err');
         res.json(user);
     });
 })
@@ -211,11 +211,15 @@ router.route('/users/:user_id')
         });
     });
 
-router.route('/users/:user_id/skills')
+router.route('/skills')
 
 .get(function(req, res) {
+  //query string parsing
   var linkedinLink = req.query.link;
   shell.exec('python skills.py ' + linkedinLink, function(err, result){
+    if(err){
+      res.json('err');
+    }
     var skills = [];
       fs.readFile('workfile', 'ascii', function(err, data){
         console.log('workfile data: ', typeof data);

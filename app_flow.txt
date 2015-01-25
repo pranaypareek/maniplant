@@ -1,0 +1,50 @@
+Base URL: http://192.168.0.115:8080/
+
+==================
+Intial stuff:
+==================
+
+GET /users/:ref_id
+	if err:
+		then do a POST /users/
+	else:
+		you get the object
+
+object has all the properties inlcuding refId
+to be used for future api calls
+
+==================
+Submitting friends:
+==================
+To be submitted one by one using:
+
+POST  /user/:ref_id
+
+      FRIENDS NEEDS TO BE A JSON OBJECT                        
+      Takes in 
+      {
+        refId: "qwe12@34#1",
+        refName: "vkrar",
+        refToken: "qwertyuiopoiuytrewq",
+        friends:     (NOT A FRIENDS ARRAY, JUST A FRIENDS OBJECT)
+          {
+            empName: "qwe123",
+            empId: "qwe123sId",
+            location: "Melbourne",
+            skill1: "python",
+            skill2: "node"
+          }
+      }
+
+==================
+COOLEST API ROUTE:
+==================
+
+http://192.168.0.115:8080/skills?link=https://in.linkedin.com/pub/vamshi-reddy/54/215/aa2
+
+    /users/:refId/skills?
+    link=https://in.linkedin.com/pub/vamshi-reddy/54/215/aa2
+    GET: runs a python script which scrapes the given link page for linked in skills
+
+    Sends a json with skills array with all the skills for the linkedIn profile!                  
+

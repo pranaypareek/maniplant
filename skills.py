@@ -29,6 +29,6 @@ if __name__ == "__main__":
 		if count <= (length-2):
 			f.write(outlet_link)
 		if count <= (length-3):
-			f.write(' ,')
+			f.write(',')
 		count += 1
 	#f.write(' ]')
