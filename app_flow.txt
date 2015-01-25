@@ -1,5 +1,62 @@
-Base URL: http://192.168.0.115:8080/
+Base URL: http://192.168.0.101:8080/
 
+STEP:1
+
+Ask the server, whether your object is there or not?
+
+GET /users/ref_id
+
+if its there, then it will return an object of yours
+else it will return []
+
+
+Ex: 
+If the user is present
+GET /users/qwe1234573
+{"__v":0,"_id":"54c49b325f444a0d1a810f1e","refId":"qwe1234573","refName":"vkrar73","refToken":"qwertyuiopoiuytrewq73",
+"friends":[null,
+{"empName":"qwe73","empId":"qwe123sId73","location":"Melbourne","skill1":"python","skill2":"node","_id":"54c49b465f444a0d1a810f1f"},
+{"empName":"qwe73","empId":"qwe123sId73","location":"Melbourne","skill1":"python","skill2":"node","_id":"54c49b615f444a0d1a810f20"}
+]}]
+
+
+if the user is not present
+GET /users/qwe1234573
+[]
+will return empty array. Now you need to create object at the server using POST request
+	
+	POST  /users/
+	{
+        refId: "qwe12@34#1",
+        refName: "vkrar",
+        refToken: "qwertyuiopoiuytrewq",
+        friends:    []
+      	}
+      	
+      	
+STEP : 2 ------------------------------------------------
+
+get the skills
+
+
+STEP : 3 -===============================================
+
+You can add friend to the existing ref_id qwe12@34#1
+
+POST  /users/qwe12@34#1
+	{
+        refId: "qwe12@34#1",
+        refName: "vkrar",
+        refToken: "qwertyuiopoiuytrewq",
+        friends:  
+          {
+            empName: "qwe123",
+            empId: "qwe123sId",
+            location: "Melbourne",
+            skill1: "python",
+            skill2: "node"
+          }
+      	}
 ==================
 Intial stuff:
 ==================
