@@ -45,7 +45,13 @@
     /user/:user_id PUT: CAN update user if required later with required
                         fields
 
-    ========================================================================                        
+    ========================================================================   
+    COOLEST API ROUTE: 
+    /users/:user_id/skills?
+    link=https://in.linkedin.com/pub/vamshi-reddy/54/215/aa2
+    GET: runs a python script which scrapes the given link page for linked in skills
+
+    Sends a json with skills array with all the skills for the linkedIn profile!                    
 */
 
 var express = require('express');
@@ -55,6 +61,8 @@ var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost:27017/maniplant');
 var moment = require('moment');
 var User = require('./app/models/userSchema');
+var shell = require('shelljs');
+var fs = require('fs');
 
 //bodyParser() lets us get the data from a POST
 app.use(bodyParser.urlencoded({
@@ -202,6 +210,25 @@ router.route('/users/:user_id')
             });
         });
     });
+
+router.route('/users/:user_id/skills')
+
+.get(function(req, res) {
+  var linkedinLink = req.query.link;
+  shell.exec('python skills.py ' + linkedinLink, function(err, result){
+    var skills = [];
+      fs.readFile('workfile', 'ascii', function(err, data){
+        console.log('workfile data: ', typeof data);
+        skills = data.split(",");
+        console.log('split array', skills);
+        shell.echo('hello world!');
+        res.json({
+          skills: skills
+        });
+      });
+  });
+})
+
 
 // REGISTER OUR ROUTES -------------------------------
 // all of our routes will be prefixed with /api

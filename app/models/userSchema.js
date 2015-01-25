@@ -16,11 +16,12 @@ var userSchema = mongoose.Schema({
     	location: String,
     	skill1: String,
     	skill2: String,
-    	/*the friend contact is made aware for the resume by emailing
-		 * on the following email ID
-		 */
-    	email: String
+    	email: String,
     }]
 });
+
+/*the friend contact is made aware for the resume by emailing
+ * on the friend's email ID
+ */
 
 module.exports = mongoose.model('userSchema', userSchema);

@@ -81,16 +81,19 @@ db.userschemas.update({"refId":"qwe123"}, {$push: {friends:
 			email: "q.w@z.com"
 		}
 	]
-}{
-	refId: "qwe126",
-	refName: "vamc",
+}
+
+{
+	refId: "qwe127",
+	refName: "vamg",
 	friends: [
 		{
 			name: "pr",
 			location: "india",
 			skill1: "D",
 			skill2: "F#",
-			email: "q.w@z.com"
+			email: "q.w@z.com",
+			skills: ["c", "cpp", "python"]
 		}
 	]
 }
