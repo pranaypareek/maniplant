@@ -99,6 +99,7 @@ router.route('/users')
     var user = new User(); // create a new instance of the user model
     user.refId = req.body.refId;
     user.refName = req.body.refName; // set the users name (comes from the request)
+    user.refToken = req.body.refToken;
     user.friends.push(req.body.friends[0]);
 
 
@@ -128,36 +129,40 @@ router.route('/users')
 
 // /users ends here
 
-router.route('/users/:user_id')
+router.route('/users/:refId')
 
 // get the user with that id (accessed at GET http://localhost:8080/api/users/:user_id)
 .get(function(req, res) {
-    User.findById(req.params.user_id, function(err, user) {
+    User.find({
+        refId: req.params.refId
+    }, function(err, user) {
+        console.log('get for ', req.params.refId);
         if (err)
             res.send('err');
+
         res.json(user);
     });
 })
 
 .post(function(req, res) {
     console.log("inside post for updating friends list");
-    var id = req.params.id;
+    //var id = req.params.id;
     var friends = {
-        name: req.body.friends.name,
+        empName: req.body.friends.empName,
+        empId: req.body.friends.empId,
         location: req.body.friends.location,
         skill1: req.body.friends.skill1,
         skill2: req.body.friends.skill2,
-        email: req.body.friends.email
     };
     var options = {
         $upsert: true
     }
     var query = {
-        _id: req.params.user_id
+        refId: req.params.refId
     }
-    console.log('inserting friend for ' + req.params.user_id +
+    console.log('inserting friend for ' + req.params.refId +
         ' friend object in the req', friends);
-    User.findByIdAndUpdate(req.refId, {
+    User.findOneAndUpdate(query, {
         $push: {
             "friends": friends
         }
@@ -178,7 +183,7 @@ router.route('/users/:user_id')
 .put(function(req, res) {
 
         // use our user model to find the user we want
-        User.findById(req.params.user_id, function(err, user) {
+        User.find(req.params.refId, function(err, user) {
 
             if (err)
                 res.send(err);
@@ -200,7 +205,7 @@ router.route('/users/:user_id')
     // delete the bear with this id (accessed at DELETE http://localhost:8080/api/bears/:bear_id)
     .delete(function(req, res) {
         User.remove({
-            _id: req.params.user_id
+            refId: req.params.refId
         }, function(err, bear) {
             if (err)
                 res.send(err);
@@ -214,23 +219,23 @@ router.route('/users/:user_id')
 router.route('/skills')
 
 .get(function(req, res) {
-  //query string parsing
-  var linkedinLink = req.query.link;
-  shell.exec('python skills.py ' + linkedinLink, function(err, result){
-    if(err){
-      res.json('err');
-    }
-    var skills = [];
-      fs.readFile('workfile', 'ascii', function(err, data){
-        console.log('workfile data: ', typeof data);
-        skills = data.split(",");
-        console.log('split array', skills);
-        shell.echo('hello world!');
-        res.json({
-          skills: skills
+    //query string parsing
+    var linkedinLink = req.query.link;
+    shell.exec('python skills.py ' + linkedinLink, function(err, result) {
+        if (err) {
+            res.json('err');
+        }
+        var skills = [];
+        fs.readFile('workfile', 'ascii', function(err, data) {
+            console.log('workfile data: ', typeof data);
+            skills = data.split(",");
+            console.log('split array', skills);
+            shell.echo('hello world!');
+            res.json({
+                skills: skills
+            });
         });
-      });
-  });
+    });
 })
 
 

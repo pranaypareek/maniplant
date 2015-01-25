@@ -18,21 +18,21 @@ Submitting friends:
 ==================
 To be submitted one by one using:
 
-POST  /user/:ref_id
+POST  /users/:ref_id
 
       FRIENDS NEEDS TO BE A JSON OBJECT                        
       Takes in 
       {
-        refId: "qwe12@34#1",
-        refName: "vkrar",
-        refToken: "qwertyuiopoiuytrewq",
-        friends:     (NOT A FRIENDS ARRAY, JUST A FRIENDS OBJECT)
+        "refId": "qwe12@34#1",
+        "refName": "vkrar",
+        "refToken": "qwertyuiopoiuytrewq",
+        "friends":     (NOT A FRIENDS ARRAY, JUST A FRIENDS OBJECT)
           {
-            empName: "qwe123",
-            empId: "qwe123sId",
-            location: "Melbourne",
-            skill1: "python",
-            skill2: "node"
+            "empName": "qwe123",
+            "empId": "qwe123sId",
+            "location": "Melbourne",
+            "skill1": "python",
+            "skill2": "node"
           }
       }
 

@@ -9,27 +9,17 @@ var userSchema = mongoose.Schema({
     //user name for the SpringRole user making the referral 
     refName: String,
     //access token to facilitate messaging with linkedIn
-    refToken: {
-        type: String,
-        index: {
-            unique: true
-        }
-    },
+    refToken: String,
     /* friends array populated with the list of SpringRole user's 
      * LinkedIn contacts with the top the skills as voted by the user
      */
     friends: [{
         empName: String,
-        empId: {
-            type: String,
-            index: {
-                unique: true
-            }
-        },
+        empId: String,
         location: String,
         skill1: String,
         skill2: String,
-    }, {default: null}]
+    }]
 });
 
 module.exports = mongoose.model('userSchema', userSchema);
