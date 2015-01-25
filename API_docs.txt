@@ -1,0 +1,56 @@
+    API DOCS
+    
+    ========================================================================
+    /user GET: returns list of users
+    /user POST: creates a new user with 
+    * FRIENDS NEEDS TO BE AN ARRAY *
+    {
+      refId,
+      refName,
+      friends: [
+      {
+        name,
+        location,
+        skill1,
+        skill2,
+        email
+      }]
+    }
+    ========================================================================  
+    /user/:user_id GET: returns the properties of the specifed user id
+
+    IMPORTANT ONE:==========================================================
+      /user/:user_id POST: updates the friends array with the friend's json
+                        object
+      FRIENDS NEEDS TO BE A JSON OBJECT                        
+      Takes in 
+      {
+        refId: "qwe12@34#1",
+        refName: "vkrar",
+        refToken: "qwertyuiopoiuytrewq",
+        friends:     (NOT A FRIENDS ARRAY, JUST A FRIENDS OBJECT)
+          {
+            empName: "qwe123",
+            empId: "qwe123sId",
+            location: "Melbourne",
+            skill1: "python",
+            skill2: "node"
+          }
+      }    
+
+          
+
+    ========================================================================
+    /user/:user_id DELETE: deletes user
+
+    ========================================================================  
+    /user/:user_id PUT: CAN update user if required later with required
+                        fields
+
+    ========================================================================   
+    COOLEST API ROUTE: 
+    /users/:user_id/skills?
+    link=https://in.linkedin.com/pub/vamshi-reddy/54/215/aa2
+    GET: runs a python script which scrapes the given link page for linked in skills
+
+    Sends a json with skills array with all the skills for the linkedIn profile!                    

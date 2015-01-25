@@ -29,7 +29,7 @@ var userSchema = mongoose.Schema({
         location: String,
         skill1: String,
         skill2: String,
-    }]
+    }, {default: null}]
 });
 
 module.exports = mongoose.model('userSchema', userSchema);

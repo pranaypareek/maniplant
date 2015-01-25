@@ -1,7 +1,7 @@
 /* API DOCS
     ========================================================================
-    /user GET: returns list of users
-    /user POST: creates a new user with 
+    /users GET: returns list of users
+    /users POST: creates a new user with 
     {
       refId,
       refName,
@@ -15,10 +15,10 @@
       }]
     }
     ========================================================================  
-    /user/:user_id GET: returns the properties of the specifed user id
+    /users/:user_id GET: returns the properties of the specifed user id
 
     IMPORTANT ONE:==========================================================
-      /user/:user_id POST: updates the friends array with the friends json
+      /users/:user_id POST: updates the friends array with the friends json
                         object
       Takes in {
           "__v": 0,
@@ -39,10 +39,10 @@
           
 
     ========================================================================
-    /user/:user_id DELETE: deletes user
+    /users/:user_id DELETE: deletes user
 
     ========================================================================  
-    /user/:user_id PUT: CAN update user if required later with required
+    /users/:user_id PUT: CAN update user if required later with required
                         fields
 
     ========================================================================   
@@ -99,8 +99,8 @@ router.route('/users')
     var user = new User(); // create a new instance of the user model
     user.refId = req.body.refId;
     user.refName = req.body.refName; // set the users name (comes from the request)
-    user.friends = [];
-    //console.log('req body: ', req.body.refId);
+    user.friends.push(req.body.friends[0]);
+
 
     console.log('USER: ', user);
     // save the user and check for errors
