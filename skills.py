@@ -11,24 +11,19 @@ def download_pages(url_to_download):
 	return page
 
 if __name__ == "__main__":
-	linkedpage = sys.argv[1]
-	#with open ("/home/saumye/linkedin.html","r") as myfile:
-	#	data = myfile.read()
-	f = open('workfile', 'w')
-	#f.write('[ ')
-	data = download_pages(linkedpage)			#FOR NON LOCAL
+	linkedinpage = sys.argv[1]
+	f = open('workfile', 'w')			#FILE WHERE SKILLS WOULD BE WRITTEN AS JSONARRAY
+	data = download_pages(linkedinpage)			#Subroutine to Download the Webpage
 	parsed_html = BeautifulSoup(data)
-	popular_stores = parsed_html.find(id = "profile-skills")
-	popular_stores = popular_stores.find_all('li')
+	all_skills = parsed_html.find(id = "profile-skills")
+	all_skills = all_skills.find_all('li')
 	jsonobj = []
 	count = 0
-	length = len(popular_stores)
-	for list in popular_stores:
-		outlet_link = list.span.span.text
-		#jsonobj.append(outlet_link)
+	length = len(all_skills)
+	for skill_list_obj in all_skills:
+		skill = skill_list_obj.span.span.text
 		if count <= (length-2):
-			f.write(outlet_link)
+			f.write(skill)
 		if count <= (length-3):
 			f.write(',')
 		count += 1
-	#f.write(' ]')
